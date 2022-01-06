@@ -35,20 +35,21 @@ const UMD = {
     libraryTarget: 'umd' // 以库的形式导出入口文件时，输出的类型,这里是通过umd的方式来暴露library,适用于使用方import的方式导入npm包
   },
   optimization: {
-    minimize: true
+    minimize: true,
+    concatenateModules: true,
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new CopyPlugin(
-      {
-        patterns: [
-          {from: "src/types/", to: "types/"},
-          // {from: "src/constants/", to: "constants/"},
-          {from: "src/index.d.ts", to: "index.d.ts"},
-          {from: "src/assets/icon/eraser.png", to: "assets/icon/eraser.png"},
-        ],
-      }
-    )
+    // new CopyPlugin(
+    //   {
+    //     patterns: [
+    //       {from: "src/types/", to: "types/"},
+    //       {from: "src/constants/", to: "constants/"},
+    //       {from: "src/index.d.ts", to: "index.d.ts"},
+    //       {from: "src/assets/icon/eraser.png", to: "assets/icon/eraser.png"},
+    //     ],
+    //   }
+    // )
   ]
 };
 
