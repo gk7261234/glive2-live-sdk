@@ -1,7 +1,7 @@
 
 import { EventEmitter } from 'events';
 import EraserImg from "../../../assets/icon/eraser.png"
-import { TencentBoard as BoardClass, AddTransCodeFileParams } from "../../../types/tencent/board"
+import { TencentBoard as BoardClass, AddTransCodeFileParams, FileInfo, BoardElement } from "../../../types/tencent/board"
 import { IWhiteBoard } from '../../../types/common';
 declare var window: Window & {
     TEduBoard: any,
@@ -107,7 +107,7 @@ export class TencentBoard extends EventEmitter implements BoardClass {
      * @param url (视频文件地址url，只支持https协议的视频文件url, 目前仅支持mp4格式文件)
      * @returns 文件 ID
      */
-    addVideoFile(url: string) {
+    addVideoFile(url: string): string {
         return this._teduBoard?.addVideoFile(url);
     }
 
@@ -116,7 +116,7 @@ export class TencentBoard extends EventEmitter implements BoardClass {
      * @param url (音频文件地址url)
      * @returns 元素ID
      */
-    addAudioElement(url: string) {
+    addAudioElement(url: string): string {
         return this._teduBoard?.addElement(window.TEduBoard.TEduBoardElementType.TEDU_BOARD_ELEMENT_GLOBAL_AUDIO, url);
     }
 
@@ -198,7 +198,7 @@ export class TencentBoard extends EventEmitter implements BoardClass {
         this._teduBoard?.showVideoControl(show);
     }
 
-    addBoard() {
+    addBoard(): string {
         return this._teduBoard?.addBoard();
     }
 
@@ -332,7 +332,7 @@ export class TencentBoard extends EventEmitter implements BoardClass {
     }
 
     // 添加转码文件
-    addTranscodeFile(config: AddTransCodeFileParams) {
+    addTranscodeFile(config: AddTransCodeFileParams): string {
         return this._teduBoard?.addTranscodeFile(config, false);
     }
 
@@ -347,22 +347,22 @@ export class TencentBoard extends EventEmitter implements BoardClass {
     }
 
     // 获取当前文件 ID
-    getCurrentFile() {
+    getCurrentFile(): string {
         return this._teduBoard?.getCurrentFile();
     }
 
     // 获取白板中上传的所有文件的文件信息列表
-    getFileInfoList() {
+    getFileInfoList(): FileInfo[] {
         return this._teduBoard?.getFileInfoList();
     }
 
     // 获取白板中指定文件的文件信息
-    getFileInfo(fileId: string) {
+    getFileInfo(fileId: string): FileInfo {
         return this._teduBoard?.getFileInfo(fileId);
     }
 
     // 获取当前白板页缩放比例
-    getBoardScale() {
+    getBoardScale(): number {
         return this._teduBoard?.getBoardScale();
     }
 
@@ -370,7 +370,7 @@ export class TencentBoard extends EventEmitter implements BoardClass {
      * 获取白板音频元素列表
      * Returns: elements 音频元素数组
      */
-    getBoardAudioList() {
+    getBoardAudioList(): BoardElement[] {
         const boardElementList = this._teduBoard?.getBoardElementList();
         return boardElementList?.filter((item: any) => item.type === window.TEduBoard.TEduBoardElementType.TEDU_BOARD_ELEMENT_GLOBAL_AUDIO);
     }
@@ -380,7 +380,7 @@ export class TencentBoard extends EventEmitter implements BoardClass {
      * param: id(string) 元素id
      * Returns: 删除是否成功
      */
-    removeElement(id: string) {
+    removeElement(id: string): boolean {
         return this._teduBoard?.removeElement(id);
     }
 

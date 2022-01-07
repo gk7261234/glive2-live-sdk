@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 import { TRTCBeautyStyle } from '../../../constants/enum';
-import { TencentTrtc as RTC, InitLiveParams } from '../../../types/tencent/trtc'
+import { TencentTrtc as RTC, InitLiveParams, DeviceInfo, ScreenCaptureSourceInfo } from '../../../types/tencent/trtc'
 declare var window: Window & {
     trtcCloud: any,
     TRTRDefine: any
@@ -68,8 +68,7 @@ export class TencentTrtc extends EventEmitter implements RTC{
     * @desc 摄像头列表
     * @returns { DeviceInfo[] } 设备列表
     */
-    getCameraList(){
-
+    getCameraList(): DeviceInfo[] {
         return this._trtc.getCameraDevicesList();
     }
     /**
@@ -85,8 +84,7 @@ export class TencentTrtc extends EventEmitter implements RTC{
      * @desc 麦克风列表
      * @returns { DeviceInfo[] } 设备列表
      */
-    getMicphoneList(){
-
+    getMicphoneList(): DeviceInfo[] {
         return this._trtc.getMicDevicesList()
     }
     /**
@@ -110,8 +108,7 @@ export class TencentTrtc extends EventEmitter implements RTC{
      * @desc 获取系统当前麦克风设备是否静音
      * @returns { boolean } true 静音 false 取消静音
      */
-    getCurrentMicphoneMute(){
-
+    getCurrentMicphoneMute(): boolean {
         return this._trtc.getCurrentMicDeviceMute()
     }
 
@@ -119,19 +116,21 @@ export class TencentTrtc extends EventEmitter implements RTC{
      * @desc 获取扬声器列表
      * @returns { DeviceInfo[] } 设备列表
      */
-    getSpeakerList(){
-
+    getSpeakerList(): DeviceInfo[] {
         return this._trtc.getSpeakerDevicesList()
     }
+
     setCurrentSpeaker(speakerId: string){
 
         this._trtc.setCurrentSpeakerDevice(speakerId)
     }
+
     setCurrentSpeakerMute(mute: boolean){
         this._trtc.setCurrentSpeakerDeviceMute(mute)
 
     }
-    getCurrentSpeakerMute(){
+
+    getCurrentSpeakerMute(): boolean {
         return this._trtc.getCurrentSpeakerDeviceMute()
     }
 
@@ -174,7 +173,7 @@ export class TencentTrtc extends EventEmitter implements RTC{
         this._trtc.setLocalRenderParams({ rotation: 0, fillMode: 0,  mirrorType: isFillmode ? 2 : 1 });
     }
 
-    getScreenCaptureSources(){
+    getScreenCaptureSources(): ScreenCaptureSourceInfo[] {
         return this._trtc.getScreenCaptureSources(120,68,120,68);
     }
     selectScreenCaptureTarget(type: number, sourceId: string, sourceName: string){
