@@ -1,3 +1,4 @@
+import { EventEmitter } from 'events';
 export interface ImParams {
     SDKAppID: number,
     userId: string,
@@ -107,4 +108,28 @@ export interface ImResponseMsg {
     audioId?: any,
     chatTime?: string,
 }
+
+export interface IPrivateChatItem {
+    userName: string,
+    userId?: number,
+    roleType?: number,
+    roomId?: string,
+    nick?: string,
+}
+
+export declare class BaseLive extends EventEmitter {
+    joinGroup(onoff: boolean): void
+    sendPublicChat(dataContent: string, banType: number, chatType?: number): Promise<any>
+    sendPrivateChat(userInfo: IPrivateChatItem, dataContent: string, banType: number, chatType?: number): Promise<any> | void
+    deleteChat(id: number): Promise<any>
+    banDeleteChat(userId: number): Promise<any>
+    banChat(userId: number): Promise<any>
+    unBanChat(userId: number): Promise<any>
+    allBanChat(): Promise<any>
+    allUnBanChat(): Promise<any>
+    replyQuestion(reply: any): Promise<any>
+    cancelQuestionPublic(params: any): Promise<any>
+    addAnnouncement(dataContent: string): Promise<any>
+    kickOutLiveRoom(userId: number): Promise<any>
+} 
 

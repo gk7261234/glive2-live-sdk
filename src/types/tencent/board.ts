@@ -1,4 +1,5 @@
 // 白板初始化参数，详见https://cloud.tencent.com/document/product/1137/40000
+import { EventEmitter } from 'events';
 import { IWhiteBoard } from "../common"
 export interface IWhiteBoardProps {
     classId: string, //课堂 ID
@@ -33,10 +34,9 @@ export interface AddTransCodeFileParams {
     resolution:	string,	//文件转码结果文件分辨率
 }
 
-export declare class TencentBoard {
+export declare class TencentBoard extends EventEmitter {
     constructor(boardParams: IWhiteBoard);
     init(): void;
-    on(onFun: string, callBack: (data?: any)=>void): void;
     addSyncData(data: any): void;
     getCurrentFile(): any;
     getBoardAudioList(): any;

@@ -1,10 +1,6 @@
-export interface ImParams {
-    SDKAppID: number,
-    userId: string,
-    userSig: string,
-    groupID: string,
-    meetingGroupId?: string, // 普通群id
-}
+import { EventEmitter } from 'events';
+import { ImParams, ImResponseMsg } from "../common"
+
 export interface IEventMessage {
     cmd: string, //信令编号
     roomId: string, //直播间ID
@@ -46,15 +42,14 @@ export interface ICommonCustomMsg {
 export type IGetMessageHistory = () => IEventMessage[]
 export type ISendMessage = (data: any) => void
 export type IOnMessage = (eventName: string, ctx: IEventMessage) => void
-export declare class TencentIM {
+export declare class TencentIM extends EventEmitter {
     constructor(imParams: ImParams, commonCustomMsg: ICommonCustomMsg);
     init(initParams: ImParams): void;
-    on(onFun: string, callBack: (data?: any, data1?: any)=>void): void;
     getMessageHistory: IGetMessageHistory;
-    sendPublicMessage(groupId: string, message: any): Promise<any>;
-    sendPrivateMessage(userId: number, message: any): Promise<any>;
+    sendPublicMessage(groupId: string, message: any): Promise<ImResponseMsg|string>;
+    sendPrivateMessage(userId: number, message: any): Promise<ImResponseMsg|string>;
     onMessage: IOnMessage;
     joinGroup(onoff: boolean): void;
     quitGroup(): void;
-    sendTXWhiteBoardMessage(roomId: string, data: any): Promise<any>;
+    sendTXWhiteBoardMessage(roomId: string, data: any): Promise<ImResponseMsg|string>;
 }

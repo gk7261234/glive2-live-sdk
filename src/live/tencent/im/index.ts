@@ -2,7 +2,7 @@ import { EventEmitter } from 'events';
 import TIM from 'tim-js-sdk';
 import { IMEventCode, ChatTypes, IMEventName, IMState } from '../../../constants/enum';
 import { formatMsg } from '../../../utils/basic';
-import {ICommonCustomMsg, ImParams } from '../../../types/common';
+import {ICommonCustomMsg, ImParams, ImResponseMsg } from '../../../types/common';
 import { TencentIM as IM } from '../../../types/tencent/im';
 export class TencentIM  extends EventEmitter implements IM{
     tim: any;
@@ -73,7 +73,7 @@ export class TencentIM  extends EventEmitter implements IM{
     * userID:string //消息接收方的 userID
     * data:string //自定义消息的数据字段
     */
-    sendTXWhiteBoardMessage(groupId:string, data:any) {
+    sendTXWhiteBoardMessage(groupId:string, data:any): Promise<ImResponseMsg | string> {
         if (this.timState !== IMState.READY){
             return Promise.reject(this.timState);
         }
@@ -95,7 +95,7 @@ export class TencentIM  extends EventEmitter implements IM{
                 console.log('sendMessage success:', imResponse);
                 this.sendTXWhiteBoardMessageToMeeting(data);
                 resolve(formatMsg(imResponse.data.message));
-            }).catch(function(imError: any) {
+            }).catch(function(imError: string) {
                 // 发送失败
                 console.warn('sendMessage error:', imError);
                 reject(imError);
@@ -130,7 +130,7 @@ export class TencentIM  extends EventEmitter implements IM{
     * userID:string //消息接收方的 userID
     * data:string //自定义消息的数据字段
     */
-    sendPublicMessage(groupId:string, data: ICommonCustomMsg) {
+    sendPublicMessage(groupId:string, data: ICommonCustomMsg): Promise<ImResponseMsg | string> {
         if (this.timState !== IMState.READY){
             return Promise.reject(this.timState);
         }
@@ -163,7 +163,7 @@ export class TencentIM  extends EventEmitter implements IM{
     * userID:string //消息接收方的 userID
     * data:string //自定义消息的数据字段
     */
-    sendPrivateMessage(userID: number, data: ICommonCustomMsg) {
+    sendPrivateMessage(userID: number, data: ICommonCustomMsg): Promise<ImResponseMsg | string> {
         if (this.timState !== IMState.READY){
             return Promise.reject(this.timState);
         }

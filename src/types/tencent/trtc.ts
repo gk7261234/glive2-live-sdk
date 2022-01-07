@@ -1,3 +1,4 @@
+import { EventEmitter } from 'events';
 export interface  ScreenCaptureSourceInfo{
     sourceId: string
     sourceName:	 string
@@ -18,8 +19,7 @@ export interface InitLiveParams {
     roomId: number,
     streamId: string,
 }
-export declare class TencentTrtc {
-    on(onFun: string, callBack: (data?: any, data1?: any)=>void): void;
+export declare class TencentTrtc extends EventEmitter {
     startPublishing(streamId: string, type?: number): void;
     stopPublishing(): void;
     setDefaultStreamRecvMode?(autoRecvAudio: boolean, autoRecvVideo: boolean): void;
