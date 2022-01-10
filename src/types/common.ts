@@ -76,7 +76,7 @@ export interface IWhiteBoard {
     preloadDepth?: number, //图片预加载深度，默认值 5，表示预加载当前页前后5页的图片
     progressEnable?: boolean, //是否启用 SDK 内置 Loading 图标，默认值 false
     progressBarUrl?: string, //自定义加载图标，在 progressEnable = true 时生效，支持 jpg、gif、png、svg
-    systemCursorEnable?: string, //是否启用原生系统光标，默认 false，该参数说明具体请看 setSystemCursorEnable 接口
+    systemCursorEnable?: boolean, //是否启用原生系统光标，默认 false，该参数说明具体请看 setSystemCursorEnable 接口
     enableScaleTool?: boolean, //是否启用白板缩放移动工具的缩放功能，当设置为 false，切换到缩放移动工具时缩放功能不可用
     syncFps?: number, //信令同步频率，该值的允许范围为 [5, 20]，默认5帧
     proxyServer?: string, //是否为白板服务设置代理服务器，传入一个JSON格式字符串。白板服务类型可参考{@link TEduBoard.TEduBoardServiceType 服务类型}，JSON 格式可参考 setProxyServer 接口
